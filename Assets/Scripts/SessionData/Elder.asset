@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00d043bfdb973db4ab470462ffb4efd4, type: 3}
+  m_Name: Elder
+  m_EditorClassIdentifier: 
+  enemyName: Elder
+  enemyPrefab: {fileID: 1563001507790456712, guid: b47e0d65a2a1cb5449c749c64517b7d6, type: 3}
+  start: 1020
+  end: 1015
+  hitPoints: 1000
+  maxEnemies: 1
+  numPerSpawn: 1
+  spawnCooldown: 10
+  behaviorScript: {fileID: 11500000, guid: 9a0e95509dcc52f4cacef57b999c6e95, type: 3}
+  dropPrefab: {fileID: 9121992970201070417, guid: 12bc0f5d551cf484e8cdea7e21e0a7ac, type: 3}
+  xpAmount: 36
