@@ -8,6 +8,9 @@ public class AutoShooting : MonoBehaviour
     private bool isAutoShooting = false;
     private float lastShootTime;
 
+    public AudioSource gunAudioSource;
+    public AudioClip shootingSound;
+
     private void Start()
     {
         FindActiveWeapon();
@@ -41,9 +44,17 @@ public class AutoShooting : MonoBehaviour
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
                 transform.rotation = Quaternion.Euler(0, 0, angle);
 
-                if (Time.time >= lastShootTime + activeWeapon.shootCooldown)
+                // Only shoot if not reloading
+                if (!activeWeapon.isReloading && Time.time >= lastShootTime + activeWeapon.shootCooldown)
                 {
                     ShootFromObject(); // Shoot from this object instead of the firePoint
+
+                    // Play gun sound
+                    if (gunAudioSource != null && shootingSound != null)
+                    {
+                        gunAudioSource.PlayOneShot(shootingSound);
+                    }
+
                     lastShootTime = Time.time;
                 }
             }
@@ -93,7 +104,8 @@ public class AutoShooting : MonoBehaviour
 
     private void ShootFromObject()
     {
-        if (activeWeapon.isReloading) return; // Prevent shooting while reloading
+        // If reloading, do nothing (prevent shooting instead of stopping sound suddenly)
+        if (activeWeapon.isReloading) return;
 
         if (activeWeapon.currentAmmo > 0)
         {
@@ -113,8 +125,8 @@ public class AutoShooting : MonoBehaviour
         }
         else
         {
+            // Start reloading
             StartCoroutine(activeWeapon.Reload());
         }
     }
-
 }

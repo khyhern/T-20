@@ -23,6 +23,9 @@ public class ShootingSemi : MonoBehaviour
     public int bulletDamage = 25;
     public float knockbackForce = 10f; // New: Knockback strength for the enemy
 
+    public AudioSource gunAudioSource;
+    public AudioClip shootingSound;
+
 
     protected virtual void Start()
     {
@@ -71,6 +74,12 @@ public class ShootingSemi : MonoBehaviour
 
 
         Destroy(bulletObject, 0.1f); // Auto-destroy after 0.2 seconds
+
+        // Play gun sound with overlap
+        if (gunAudioSource != null && shootingSound != null)
+        {
+            gunAudioSource.PlayOneShot(shootingSound);
+        }
     }
 
     public IEnumerator Reload()

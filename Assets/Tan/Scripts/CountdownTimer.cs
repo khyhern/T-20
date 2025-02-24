@@ -58,12 +58,6 @@ public class CountdownTimer : MonoBehaviour
     void TimerFinished()
     {
         Debug.Log("Timer has finished!");
-        PauseGame();
-    }
-
-    void PauseGame()
-    {
-        Time.timeScale = 0;
-        Debug.Log("Game Paused!");
+        FindFirstObjectByType<PlayerProgress>()?.TimeUp();
     }
 }

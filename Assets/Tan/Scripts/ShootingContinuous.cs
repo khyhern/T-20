@@ -28,6 +28,10 @@ public class ShootingContinuous : MonoBehaviour
 
     public float autoAimRange = 15f;
 
+    public AudioSource gunAudioSource;
+    public AudioClip shootingSound;
+
+
     protected virtual void Start()
     {
         currentAmmo = magazineSize;
@@ -69,6 +73,12 @@ public class ShootingContinuous : MonoBehaviour
 
             Rigidbody2D rb = bulletObject.GetComponent<Rigidbody2D>();
             rb.AddForce(firePoint.up * bulletForce, ForceMode2D.Impulse);
+
+            // Play gun sound with overlap
+            if (gunAudioSource != null && shootingSound != null)
+            {
+                gunAudioSource.PlayOneShot(shootingSound);
+            }
         }
         else
         {

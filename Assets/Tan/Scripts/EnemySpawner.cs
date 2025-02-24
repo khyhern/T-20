@@ -10,62 +10,94 @@ public class EnemyPrefabStats
     public int healthPoints = 10;
     public int damageToPlayer = 1;
     public float knockbackForce = 5f;
+    public float spawnRate = 2f; // Individual spawn rate
 }
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private float spawnRate = 1f;
     [SerializeField] private bool canSpawn = true;
     [SerializeField] private Transform[] spawnPoints;
     [SerializeField] private List<EnemyPrefabStats> enemyList = new List<EnemyPrefabStats>();
 
+    private Dictionary<GameObject, float> enemySpawnRates = new Dictionary<GameObject, float>(); // Store individual spawn rates
+    private Dictionary<GameObject, float> nextSpawnIncreaseTimes = new Dictionary<GameObject, float>(); // Track when to increase spawn rates
+
     private void Start()
     {
-        StartCoroutine(Spawner());
-        CountdownTimer.OnDifficultyIncrease += IncreaseEnemyHealth; // Subscribe to event
+        // Initialize spawn rates per enemy type
+        foreach (var enemy in enemyList)
+        {
+            enemySpawnRates[enemy.enemyPrefab] = enemy.spawnRate;
+            nextSpawnIncreaseTimes[enemy.enemyPrefab] = FindAnyObjectByType<CountdownTimer>().timeRemaining - 90f; // Start checking after 1 min 30 sec
+
+            StartCoroutine(Spawner(enemy)); // Start individual spawn coroutine
+        }
+
+        CountdownTimer.OnDifficultyIncrease += HandleDifficultyIncrease; // Subscribe to event
     }
 
     private void OnDestroy()
     {
-        CountdownTimer.OnDifficultyIncrease -= IncreaseEnemyHealth; // Unsubscribe to prevent memory leaks
+        CountdownTimer.OnDifficultyIncrease -= HandleDifficultyIncrease; // Unsubscribe to prevent memory leaks
     }
 
-    private IEnumerator Spawner()
+    private IEnumerator Spawner(EnemyPrefabStats enemy)
     {
-        WaitForSeconds wait = new WaitForSeconds(spawnRate);
-
         while (canSpawn)
         {
-            yield return wait;
-
-            int randIndex = Random.Range(0, enemyList.Count);
-            EnemyPrefabStats selectedEnemy = enemyList[randIndex];
+            yield return new WaitForSeconds(enemySpawnRates[enemy.enemyPrefab]);
 
             Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-            GameObject spawnedEnemy = Instantiate(selectedEnemy.enemyPrefab, spawnPoint.position, Quaternion.identity);
+            GameObject spawnedEnemy = Instantiate(enemy.enemyPrefab, spawnPoint.position, Quaternion.identity);
 
             EnemyAI enemyAI = spawnedEnemy.GetComponent<EnemyAI>();
             if (enemyAI != null)
             {
-                enemyAI.speed = selectedEnemy.speed;
-                enemyAI.healthPoints = selectedEnemy.healthPoints;
-                enemyAI.damageToPlayer = selectedEnemy.damageToPlayer;
-                enemyAI.knockbackForce = selectedEnemy.knockbackForce;
+                enemyAI.speed = enemy.speed;
+                enemyAI.healthPoints = enemy.healthPoints;
+                enemyAI.damageToPlayer = enemy.damageToPlayer;
+                enemyAI.knockbackForce = enemy.knockbackForce;
             }
 
-            Debug.Log($"Spawned {selectedEnemy.enemyPrefab.name} with {selectedEnemy.healthPoints} HP");
+            Debug.Log($"Spawned {enemy.enemyPrefab.name} with {enemy.healthPoints} HP");
+        }
+    }
+
+    private void HandleDifficultyIncrease()
+    {
+        float timeRemaining = FindAnyObjectByType<CountdownTimer>().timeRemaining;
+
+        // Increase enemy health
+        IncreaseEnemyHealth();
+
+        // Every 90 seconds, check for each enemy type and increase its spawn rate
+        foreach (var enemy in enemyList)
+        {
+            if (timeRemaining <= nextSpawnIncreaseTimes[enemy.enemyPrefab])
+            {
+                IncreaseSpawnRate(enemy);
+                nextSpawnIncreaseTimes[enemy.enemyPrefab] -= 90f; // Set next spawn increase interval
+            }
         }
     }
 
     private void IncreaseEnemyHealth()
     {
-        for (int i = 0; i < enemyList.Count; i++)
+        foreach (var enemy in enemyList)
         {
-            enemyList[i].healthPoints += 20; // Add +20 health
-            Debug.Log($"{enemyList[i].enemyPrefab.name} health increased to {enemyList[i].healthPoints}");
+            enemy.healthPoints += 20; // Add +20 health
+            Debug.Log($"{enemy.enemyPrefab.name} health increased to {enemy.healthPoints}");
         }
     }
+
+    private void IncreaseSpawnRate(EnemyPrefabStats enemy)
+    {
+        enemySpawnRates[enemy.enemyPrefab] = Mathf.Max(0.5f, enemySpawnRates[enemy.enemyPrefab] - 1f); // Reduce spawn time
+        Debug.Log($"Spawn rate for {enemy.enemyPrefab.name} increased! New spawn rate: {enemySpawnRates[enemy.enemyPrefab]} seconds.");
+    }
 }
+
+
 
 
 

@@ -34,8 +34,13 @@ public class PlayerScript : MonoBehaviour
     public bool IsDashOnCooldown => dashCooldownRemaining > 0;
     public float DashCooldownRemaining => dashCooldownRemaining;
 
+    public EquipWeapon equipWeapon; // Reference to EquipWeapon script
+
+
     void Start()
     {
+        equipWeapon = FindAnyObjectByType<EquipWeapon>(); // Automatically find EquipWeapon in scene
+
         dashCooldownUI = FindAnyObjectByType<DashCooldownUI>();
 
         if (dashCooldownUI == null)
@@ -177,6 +182,12 @@ public class PlayerScript : MonoBehaviour
         playerHealthPoints = maxHealth;
         currentLevel++;
         currentExperience = 0;
+
+        // Show weapon equip hint only if it's a new unlock
+        if (equipWeapon != null)
+        {
+            equipWeapon.DisplayEquipHints();
+        }
     }
 }
 

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class EquipWeapon : MonoBehaviour
 {
@@ -19,8 +20,14 @@ public class EquipWeapon : MonoBehaviour
     private GameObject activeWeapon = null;
     private PlayerScript player; // Reference to the player's script
 
+    private HashSet<int> shownWeapons = new HashSet<int>(); // Tracks weapons already hinted
+
+
     private void Start()
     {
+        equipHintText.text = "";
+        equipHintText.color = new Color(equipHintText.color.r, equipHintText.color.g, equipHintText.color.b, 0);
+
         player = Object.FindFirstObjectByType<PlayerScript>();
 
         if (player == null)
@@ -122,17 +129,20 @@ public class EquipWeapon : MonoBehaviour
         weaponText.color = new Color(weaponText.color.r, weaponText.color.g, weaponText.color.b, 0);
     }
 
-    private void DisplayEquipHints()
+    public void DisplayEquipHints()
     {
         string hintMessage = "";
         foreach (WeaponSlot slot in weapons)
         {
-            if (player.currentLevel >= slot.requiredLevel)
+            // If player reaches the required level and hasn't been shown before
+            if (player.currentLevel == slot.requiredLevel && !shownWeapons.Contains(slot.requiredLevel))
             {
                 hintMessage += $"Press {slot.keybind} to equip {slot.weaponName}\n";
+                shownWeapons.Add(slot.requiredLevel); // Mark this weapon as shown
             }
         }
 
+        // Display message only if a new weapon hint was added
         if (!string.IsNullOrEmpty(hintMessage))
         {
             equipHintText.text = hintMessage;
@@ -140,6 +150,7 @@ public class EquipWeapon : MonoBehaviour
             StartCoroutine(FadeEquipHint());
         }
     }
+
 
     private IEnumerator FadeEquipHint()
     {
