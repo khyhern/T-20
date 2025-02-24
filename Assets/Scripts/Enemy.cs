@@ -20,6 +20,9 @@ public class Enemy : MonoBehaviour
     public AudioSource audioSource; // Reference to the AudioSource
     public AudioClip explosionSound; // Sound to play when the enemy explodes
 
+    private bool _hasDied = false;
+
+
 
     void Start()
     {
@@ -84,32 +87,43 @@ public class Enemy : MonoBehaviour
 
     public void Die()
     {
+        if (_hasDied) return; // Prevent multiple executions
+        _hasDied = true;
+
         Debug.Log($"{enemyName} has died.");
+
+        OnDeath?.Invoke(); // Invoke death event
+
+        DropItem(); // Ensure the item is dropped only once
 
         if (behavior is ExplodingEnemyBehavior explodingBehavior)
         {
+            explodingBehavior.TriggerExplosionImmediately(); // Always trigger explosion
+
             if (audioSource != null && explosionSound != null)
             {
-                audioSource.clip = explosionSound;
-                audioSource.Play(); // Play explosion sound
-                Destroy(gameObject, explosionSound.length); // Destroy after sound finishes
+                audioSource.PlayOneShot(explosionSound); // Play sound without overriding existing clips
+
+                // Create a separate GameObject to play the sound so it isn't destroyed
+                GameObject soundObject = new GameObject("ExplosionSound");
+                AudioSource tempAudioSource = soundObject.AddComponent<AudioSource>();
+                tempAudioSource.clip = explosionSound;
+                tempAudioSource.Play();
+                Destroy(soundObject, explosionSound.length); // Destroy after sound plays
+
+                Destroy(gameObject); // Destroy the enemy immediately
             }
             else
             {
-                // No sound available, explode and destroy immediately
-                explodingBehavior.TriggerExplosionImmediately();
-                Destroy(gameObject);
+                Destroy(gameObject); // No sound, destroy immediately
             }
         }
         else
         {
-            // Non-exploding enemies die immediately
-            Destroy(gameObject);
+            Destroy(gameObject); // Non-exploding enemies die immediately
         }
-
-        OnDeath?.Invoke();
-        DropItem();
     }
+
 
 
 
