@@ -5776,7 +5776,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 392
+    m_Bits: 49416
   m_LayerOverridePriority: 10
   m_ForceSendLayers:
     serializedVersion: 2
@@ -12748,7 +12748,7 @@ TilemapCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 16384
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2

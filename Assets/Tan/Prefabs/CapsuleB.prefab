@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1889210952159290499}
   - component: {fileID: 8899052837788383916}
   - component: {fileID: 8058710089334547618}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: CapsuleB
   m_TagString: Projectile
   m_Icon: {fileID: 0}

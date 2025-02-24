@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2554780013212001162}
   - component: {fileID: 5713301073922668609}
   - component: {fileID: 6593444344354239611}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -153,8 +153,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5.5
+  dashSpeed: 10
+  dashDuration: 0.2
+  dashCooldown: 2
   rb: {fileID: 2705825604052159578}
   animator: {fileID: 2554780013212001162}
+  playerCollider: {fileID: 0}
   maxHealth: 100
   playerHealthPoints: 100
   currentExperience: 0
