@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 6.451945, y: 6.451945, z: 6.451945}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -7123529365577447762, guid: 4326dc559d1e8554c94c20f37c7e288c, type: 3}
+  m_Sprite: {fileID: 4517011205545875929, guid: 54d64e8038a3e674e9f502317a263172, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -104,10 +104,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitPoints: 0
   enemyName: 
-  moveSpeed: 2
-  knockbackForce: 5
-  dropPrefab: {fileID: 9121992970201070417, guid: 12bc0f5d551cf484e8cdea7e21e0a7ac, type: 3}
-  xpAmount: 36
+  damageAmount: 1
+  knockbackResistance: 0.5
+  audioSource: {fileID: 0}
+  explosionSound: {fileID: 0}
 --- !u!50 &-7963721222247696783
 Rigidbody2D:
   serializedVersion: 5
@@ -173,11 +173,11 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.3, y: 1.86}
+    oldSize: {x: 0.25, y: 0.27}
     newSize: {x: 1.3, y: 1.86}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.3, y: 1.86}
+  m_Size: {x: 0.25, y: 0.27}
   m_EdgeRadius: 0

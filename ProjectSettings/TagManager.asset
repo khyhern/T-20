@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - Boss
+  - Projectile
   layers:
   - Default
   - TransparentFX
@@ -21,8 +22,8 @@ TagManager:
   - Barrier
   - Props
   - Azwa's Boss
-  - 
-  - 
+  - Projectile
+  - Pickups
   - 
   - 
   - 
