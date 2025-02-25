@@ -349,7 +349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dbf31bf84afcec4ba963d58880cfc84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelTime: 1140
+  levelTime: 1080
   darknessModifier: 1
   player: {fileID: 1610251982}
   timerText: {fileID: 1762729578}
