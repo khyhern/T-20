@@ -126,7 +126,7 @@ public class AutoShooting : MonoBehaviour
         else
         {
             // Start reloading
-            StartCoroutine(activeWeapon.Reload());
+            StartCoroutine(activeWeapon.ReloadCoroutine());
         }
     }
 }

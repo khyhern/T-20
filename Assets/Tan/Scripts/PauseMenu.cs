@@ -54,6 +54,5 @@ public class PauseMenu : MonoBehaviour
         Application.Quit();
         Debug.Log("Game Quit"); // This message appears in the editor but does nothing in a built game
 
-        UnityEditor.EditorApplication.isPlaying = false; // Stops play mode in Editor
     }
 }

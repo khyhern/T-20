@@ -26,6 +26,7 @@ public class ShootingSemi : MonoBehaviour
     public AudioSource gunAudioSource;
     public AudioClip shootingSound;
 
+    private Coroutine reloadRoutine;
 
     protected virtual void Start()
     {
@@ -46,7 +47,7 @@ public class ShootingSemi : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R) && currentAmmo < magazineSize)
         {
-            StartCoroutine(Reload());
+            StartCoroutine(ReloadCoroutine());
         }
     }
 
@@ -55,7 +56,7 @@ public class ShootingSemi : MonoBehaviour
         if (isReloading) return; // Prevent shooting while reloading
         if (currentAmmo <= 0)
         {
-            StartCoroutine(Reload());
+            StartCoroutine(ReloadCoroutine());
             return;
         }
 
@@ -82,17 +83,37 @@ public class ShootingSemi : MonoBehaviour
         }
     }
 
-    public IEnumerator Reload()
+    public IEnumerator ReloadCoroutine()
     {
-        if (isReloading) yield break; // Prevent multiple reloads
-
         isReloading = true;
-        ammoText.text = "Reloading...";
+        ammoText.text = "Reloading..."; // Show reloading text
+        Debug.Log("Reloading...");
+
         yield return new WaitForSeconds(reloadTime);
 
-        currentAmmo = magazineSize;
+        currentAmmo = magazineSize; // Refill the magazine
         isReloading = false;
-        UpdateAmmoDisplay();
+        UpdateAmmoDisplay(); // Update UI with new ammo count
+
+        Debug.Log("Reload complete!");
+    }
+
+
+
+    public void StartReload()
+    {
+        if (isReloading) return;
+        reloadRoutine = StartCoroutine(ReloadCoroutine());
+    }
+
+    public void StopReload()
+    {
+        if (reloadRoutine != null)
+        {
+            StopCoroutine(reloadRoutine);
+            reloadRoutine = null;
+        }
+        isReloading = false;
     }
 
     public void UpdateAmmoDisplay()

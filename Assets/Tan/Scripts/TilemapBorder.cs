@@ -4,7 +4,7 @@ public class TilemapBorder : MonoBehaviour
 {
     private Collider2D myCollider;
     private GameObject player;
-    private bool playerExited = true; // Track if player has exited before re-enabling collision
+    //private bool playerExited = true; // Track if player has exited before re-enabling collision
 
     void Start()
     {
@@ -20,7 +20,7 @@ public class TilemapBorder : MonoBehaviour
         if (player.transform.position.x < transform.position.x)
         {
             myCollider.isTrigger = true;
-            playerExited = false; // Player has entered, so wait before turning collision back on
+            //playerExited = false; // Player has entered, so wait before turning collision back on
         }
     }
 
@@ -28,7 +28,7 @@ public class TilemapBorder : MonoBehaviour
     {
         if (other.gameObject == player)
         {
-            playerExited = true; // Player has fully exited
+            //playerExited = true; // Player has fully exited
             myCollider.isTrigger = false; // Re-enable solid collision
         }
     }

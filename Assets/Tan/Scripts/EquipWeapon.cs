@@ -67,7 +67,8 @@ public class EquipWeapon : MonoBehaviour
         {
             if (slot.weaponObject != null)
             {
-                slot.weaponObject.SetActive(false); // Disable all weapons first
+                CancelReload(slot.weaponObject); // Reset reload if needed
+                slot.weaponObject.SetActive(false);
                 Debug.Log("Deactivating: " + slot.weaponObject.name);
             }
         }
@@ -92,6 +93,7 @@ public class EquipWeapon : MonoBehaviour
             }
         }
     }
+
 
     private void ActivateFirstWeapon()
     {
@@ -166,4 +168,22 @@ public class EquipWeapon : MonoBehaviour
         }
         equipHintText.text = "";
     }
+
+    private void CancelReload(GameObject weapon)
+    {
+        ShootingContinuous contShooting = weapon.GetComponent<ShootingContinuous>();
+        ShootingSemi semiShooting = weapon.GetComponent<ShootingSemi>();
+
+        if (contShooting != null)
+        {
+            contShooting.isReloading = false; // Reset the reloading flag
+            StopCoroutine(contShooting.ReloadCoroutine()); // Stop the coroutine
+        }
+        else if (semiShooting != null)
+        {
+            semiShooting.isReloading = false; // Reset the reloading flag
+            StopCoroutine(semiShooting.ReloadCoroutine()); // Stop the coroutine
+        }
+    }
+
 }
