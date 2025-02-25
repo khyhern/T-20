@@ -30,55 +30,60 @@ public class PlayerScript : MonoBehaviour
     public Text healthText;
     public Text levelText;
 
-    // Public methods for UI to read cooldown state
+    public GameObject upgradeUIPanel; // Reference to Upgrade UI
+
     public bool IsDashOnCooldown => dashCooldownRemaining > 0;
     public float DashCooldownRemaining => dashCooldownRemaining;
 
     public EquipWeapon equipWeapon; // Reference to EquipWeapon script
 
-
     void Start()
     {
         equipWeapon = FindAnyObjectByType<EquipWeapon>(); // Automatically find EquipWeapon in scene
-
         dashCooldownUI = FindAnyObjectByType<DashCooldownUI>();
 
         if (dashCooldownUI == null)
         {
             Debug.LogError("DashCooldownUI not found! Make sure it's in the scene.");
         }
+
+        if (upgradeUIPanel != null)
+        {
+            upgradeUIPanel.SetActive(false); // Ensure UI is hidden at start
+        }
+        else
+        {
+            Debug.LogError("Upgrade UI Panel is not assigned in the Inspector!");
+        }
     }
 
     void Update()
     {
-        // Get movement input
+        if (upgradeUIPanel != null && upgradeUIPanel.activeSelf)
+            return; // Stop player movement if UI is active
+
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
-        // Adjust player's scale based on moving direction (flip animation)
         if (movement.x < 0)
             transform.localScale = new Vector3(-1, 1, 1);
         else if (movement.x > 0)
             transform.localScale = new Vector3(1, 1, 1);
 
-        // Update animator parameters
         animator.SetFloat("Horizontal", movement.x);
         animator.SetFloat("Vertical", movement.y);
         animator.SetFloat("Speed", movement.sqrMagnitude);
 
-        // Dash input (Shift key)
         if (Input.GetKeyDown(KeyCode.LeftShift) && !IsDashOnCooldown)
         {
             StartCoroutine(DashRoutine());
         }
 
-        // Reduce cooldown timer
         if (dashCooldownRemaining > 0)
         {
             dashCooldownRemaining -= Time.deltaTime;
         }
 
-        // Update UI text
         if (healthText != null)
             healthText.text = $"Health: {playerHealthPoints}";
 
@@ -94,32 +99,24 @@ public class PlayerScript : MonoBehaviour
             rb.MovePosition(rb.position + move + knockback * Time.fixedDeltaTime);
         }
 
-        // Smoothly reduce knockback
         knockback = Vector2.Lerp(knockback, Vector2.zero, 5f * Time.fixedDeltaTime);
     }
 
     IEnumerator DashRoutine()
     {
         isDashing = true;
-        dashCooldownRemaining = dashCooldown; // Start cooldown
-
-        // Temporarily disable the collider (optional)
+        dashCooldownRemaining = dashCooldown;
         playerCollider.enabled = false;
 
-        // Dash movement
         Vector2 dashDirection = movement.normalized;
         rb.linearVelocity = dashDirection * dashSpeed;
 
         yield return new WaitForSeconds(dashDuration);
 
-        // Re-enable collider
         playerCollider.enabled = true;
         isDashing = false;
-
-        // Restore movement by setting linearVelocity to normal movement speed instead of zero
         rb.linearVelocity = movement.normalized * moveSpeed;
     }
-
 
     private void OnEnable()
     {
@@ -150,7 +147,6 @@ public class PlayerScript : MonoBehaviour
     {
         playerHealthPoints -= damageToPlayer;
 
-        // Ensure health doesn't go below zero
         if (playerHealthPoints < 0)
         {
             playerHealthPoints = 0;
@@ -165,7 +161,7 @@ public class PlayerScript : MonoBehaviour
     private void PlayerDie()
     {
         Debug.Log("Game Over!");
-        Time.timeScale = 0f; // Freeze game
+        Time.timeScale = 0f;
     }
 
     private void HandleExperienceChange(int newExperience)
@@ -183,10 +179,32 @@ public class PlayerScript : MonoBehaviour
         currentLevel++;
         currentExperience = 0;
 
-        // Show weapon equip hint only if it's a new unlock
         if (equipWeapon != null)
         {
             equipWeapon.DisplayEquipHints();
+        }
+
+        if (currentLevel > 2)
+        {
+            ShowUpgradeUI();
+        }
+    }
+
+    private void ShowUpgradeUI()
+    {
+        if (upgradeUIPanel != null)
+        {
+            upgradeUIPanel.SetActive(true);
+            Time.timeScale = 0f; // Pause game
+        }
+    }
+
+    public void CloseUpgradeUI()
+    {
+        if (upgradeUIPanel != null)
+        {
+            upgradeUIPanel.SetActive(false);
+            Time.timeScale = 1f; // Resume game
         }
     }
 }

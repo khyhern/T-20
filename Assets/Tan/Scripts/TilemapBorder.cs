@@ -4,6 +4,40 @@ public class TilemapBorder : MonoBehaviour
 {
     private Collider2D myCollider;
     private GameObject player;
+    private bool playerExited = true; // Track if player has exited before re-enabling collision
+
+    void Start()
+    {
+        myCollider = GetComponent<Collider2D>();
+        player = GameObject.FindGameObjectWithTag("Player");
+    }
+
+    void Update()
+    {
+        if (player == null) return;
+
+        // If player is to the left, set isTrigger true immediately
+        if (player.transform.position.x < transform.position.x)
+        {
+            myCollider.isTrigger = true;
+            playerExited = false; // Player has entered, so wait before turning collision back on
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject == player)
+        {
+            playerExited = true; // Player has fully exited
+            myCollider.isTrigger = false; // Re-enable solid collision
+        }
+    }
+}
+
+
+/*{
+    private Collider2D myCollider;
+    private GameObject player;
 
     void Start()
     {
@@ -27,7 +61,7 @@ public class TilemapBorder : MonoBehaviour
             myCollider.isTrigger = true;
         }
     }
-}
+}*/
 
 
 /*{
