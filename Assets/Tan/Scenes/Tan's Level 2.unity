@@ -6176,7 +6176,7 @@ PrefabInstance:
       objectReference: {fileID: 1645344160}
     - target: {fileID: 5713301073922668609, guid: 8bdcf86144dc3674a82bc753a497f5dc, type: 3}
       propertyPath: loseScene
-      value: MainMenu
+      value: Death
       objectReference: {fileID: 0}
     - target: {fileID: 5713301073922668609, guid: 8bdcf86144dc3674a82bc753a497f5dc, type: 3}
       propertyPath: healthText
