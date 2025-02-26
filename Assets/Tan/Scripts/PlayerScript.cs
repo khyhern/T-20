@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
@@ -106,17 +106,40 @@ public class PlayerScript : MonoBehaviour
     {
         isDashing = true;
         dashCooldownRemaining = dashCooldown;
-        playerCollider.enabled = false;
 
         Vector2 dashDirection = movement.normalized;
         rb.linearVelocity = dashDirection * dashSpeed;
 
-        yield return new WaitForSeconds(dashDuration);
+        float elapsedTime = 0f;
+        float checkDistance = 0.5f; // Adjust if needed
 
-        playerCollider.enabled = true;
+        ContactFilter2D contactFilter = new ContactFilter2D();
+        contactFilter.SetLayerMask(LayerMask.GetMask("Walls"));
+        contactFilter.useTriggers = false; // Ignore triggers
+
+        RaycastHit2D[] hits = new RaycastHit2D[1]; // Store the hit info
+
+        while (elapsedTime < dashDuration)
+        {
+            // Check for wall collision ahead
+            if (rb.Cast(dashDirection, contactFilter, hits, checkDistance) > 0)
+            {
+                Debug.Log("Hit a wall! Stopping dash.");
+
+                // Slightly push player out of the wall to avoid getting stuck
+                rb.position -= dashDirection * 0.1f;
+                break;
+            }
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
         isDashing = false;
-        rb.linearVelocity = movement.normalized * moveSpeed;
+        rb.linearVelocity = Vector2.zero; // Stop movement when dash ends
     }
+
+
 
     private void OnEnable()
     {
