@@ -214,5 +214,5 @@ MonoBehaviour:
   spawnCount: 3
   spawnOffset: {x: 1, y: 1}
   newHealth: 50
-  newSpeed: 3.2
+  newSpeed: 2.8
   newDamage: 2
