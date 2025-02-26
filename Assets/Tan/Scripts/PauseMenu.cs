@@ -7,6 +7,8 @@ public class PauseMenu : MonoBehaviour
     public Button resumeButton;
     public Button quitButton;
 
+    public GameObject upgradeUIPanel; // Reference to Upgrade UI (Assign in Inspector)
+
     private bool isPaused = false;
 
     void Start()
@@ -23,6 +25,10 @@ public class PauseMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            // Prevent pausing when upgrade UI is active
+            if (upgradeUIPanel != null && upgradeUIPanel.activeSelf)
+                return;
+
             if (isPaused)
             {
                 ResumeGame();
@@ -53,6 +59,6 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f; // Ensure time is normal before quitting
         Application.Quit();
         Debug.Log("Game Quit"); // This message appears in the editor but does nothing in a built game
-
     }
 }
+

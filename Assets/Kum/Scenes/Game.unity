@@ -447,6 +447,7 @@ MonoBehaviour:
   currentChunk: {fileID: 0}
   spawnedChunks:
   - {fileID: 4550546664042459450}
+  maxChunksAllowed: 20
   maxOpDist: 50
   optimizerCooldownDur: 1
 --- !u!4 &126288341
@@ -2008,7 +2009,7 @@ MonoBehaviour:
       spawnCount: 0
       enemyPrefab: {fileID: 461759420925149495, guid: 69403e684532f8a4094fd87c16a70679, type: 3}
     waveQuota: 0
-    spawnInterval: 3
+    spawnInterval: 5
     spawnCount: 0
   - waveName: Wave 2
     enemyGroups:
@@ -2017,7 +2018,7 @@ MonoBehaviour:
       spawnCount: 0
       enemyPrefab: {fileID: 461759420925149495, guid: 64ee214789447d14fbde0a686fbddd4c, type: 3}
     waveQuota: 0
-    spawnInterval: 3
+    spawnInterval: 5
     spawnCount: 0
   - waveName: Wave 3
     enemyGroups:
@@ -2030,7 +2031,7 @@ MonoBehaviour:
       spawnCount: 0
       enemyPrefab: {fileID: 461759420925149495, guid: 64ee214789447d14fbde0a686fbddd4c, type: 3}
     waveQuota: 0
-    spawnInterval: 1
+    spawnInterval: 5
     spawnCount: 0
   - waveName: Wave 4
     enemyGroups:
@@ -2043,7 +2044,7 @@ MonoBehaviour:
       spawnCount: 0
       enemyPrefab: {fileID: 461759420925149495, guid: 64ee214789447d14fbde0a686fbddd4c, type: 3}
     waveQuota: 0
-    spawnInterval: 1
+    spawnInterval: 5
     spawnCount: 0
   - waveName: Wave 5
     enemyGroups:
@@ -2056,7 +2057,7 @@ MonoBehaviour:
       spawnCount: 0
       enemyPrefab: {fileID: 461759420925149495, guid: 64ee214789447d14fbde0a686fbddd4c, type: 3}
     waveQuota: 0
-    spawnInterval: 1
+    spawnInterval: 10
     spawnCount: 0
   - waveName: Wave 6
     enemyGroups:
@@ -2069,7 +2070,7 @@ MonoBehaviour:
       spawnCount: 0
       enemyPrefab: {fileID: 461759420925149495, guid: 64ee214789447d14fbde0a686fbddd4c, type: 3}
     waveQuota: 0
-    spawnInterval: 1
+    spawnInterval: 5
     spawnCount: 0
   - waveName: Wave 7
     enemyGroups:
@@ -2082,9 +2083,9 @@ MonoBehaviour:
       spawnCount: 0
       enemyPrefab: {fileID: 461759420925149495, guid: 64ee214789447d14fbde0a686fbddd4c, type: 3}
     waveQuota: 0
-    spawnInterval: 1
+    spawnInterval: 5
     spawnCount: 0
-  - waveName: 8
+  - waveName: Wave 8
     enemyGroups:
     - enemyName: Bat
       enemyCount: 3
@@ -2095,9 +2096,9 @@ MonoBehaviour:
       spawnCount: 0
       enemyPrefab: {fileID: 461759420925149495, guid: 64ee214789447d14fbde0a686fbddd4c, type: 3}
     waveQuota: 0
-    spawnInterval: 1
+    spawnInterval: 5
     spawnCount: 0
-  - waveName: 9
+  - waveName: Wave 9
     enemyGroups:
     - enemyName: Bat
       enemyCount: 3
@@ -2108,9 +2109,9 @@ MonoBehaviour:
       spawnCount: 0
       enemyPrefab: {fileID: 461759420925149495, guid: 64ee214789447d14fbde0a686fbddd4c, type: 3}
     waveQuota: 0
-    spawnInterval: 1
+    spawnInterval: 10
     spawnCount: 0
-  - waveName: 10
+  - waveName: Wave 10
     enemyGroups:
     - enemyName: Bat
       enemyCount: 3
@@ -2121,9 +2122,9 @@ MonoBehaviour:
       spawnCount: 0
       enemyPrefab: {fileID: 461759420925149495, guid: 64ee214789447d14fbde0a686fbddd4c, type: 3}
     waveQuota: 0
-    spawnInterval: 1
+    spawnInterval: 10
     spawnCount: 0
-  - waveName: 11
+  - waveName: Wave 11
     enemyGroups:
     - enemyName: Bat
       enemyCount: 3
@@ -2134,9 +2135,9 @@ MonoBehaviour:
       spawnCount: 0
       enemyPrefab: {fileID: 461759420925149495, guid: 64ee214789447d14fbde0a686fbddd4c, type: 3}
     waveQuota: 0
-    spawnInterval: 1
+    spawnInterval: 5
     spawnCount: 0
-  - waveName: 12
+  - waveName: Wave 12
     enemyGroups:
     - enemyName: Bat
       enemyCount: 3
@@ -2147,9 +2148,9 @@ MonoBehaviour:
       spawnCount: 0
       enemyPrefab: {fileID: 461759420925149495, guid: 64ee214789447d14fbde0a686fbddd4c, type: 3}
     waveQuota: 0
-    spawnInterval: 1
+    spawnInterval: 5
     spawnCount: 0
-  - waveName: 13
+  - waveName: Wave 13
     enemyGroups:
     - enemyName: Bat
       enemyCount: 3
@@ -2160,9 +2161,9 @@ MonoBehaviour:
       spawnCount: 0
       enemyPrefab: {fileID: 461759420925149495, guid: 64ee214789447d14fbde0a686fbddd4c, type: 3}
     waveQuota: 0
-    spawnInterval: 1
+    spawnInterval: 5
     spawnCount: 0
-  - waveName: 14
+  - waveName: Wave 14
     enemyGroups:
     - enemyName: Bat
       enemyCount: 3
@@ -2173,9 +2174,9 @@ MonoBehaviour:
       spawnCount: 0
       enemyPrefab: {fileID: 461759420925149495, guid: 64ee214789447d14fbde0a686fbddd4c, type: 3}
     waveQuota: 0
-    spawnInterval: 1
+    spawnInterval: 5
     spawnCount: 0
-  - waveName: 15
+  - waveName: Wave 15
     enemyGroups:
     - enemyName: Bat
       enemyCount: 3
@@ -2186,9 +2187,9 @@ MonoBehaviour:
       spawnCount: 0
       enemyPrefab: {fileID: 461759420925149495, guid: 64ee214789447d14fbde0a686fbddd4c, type: 3}
     waveQuota: 0
-    spawnInterval: 1
+    spawnInterval: 10
     spawnCount: 0
-  - waveName: 16
+  - waveName: Wave 16
     enemyGroups:
     - enemyName: Bat
       enemyCount: 3
@@ -2199,11 +2200,11 @@ MonoBehaviour:
       spawnCount: 0
       enemyPrefab: {fileID: 461759420925149495, guid: 64ee214789447d14fbde0a686fbddd4c, type: 3}
     waveQuota: 0
-    spawnInterval: 1
+    spawnInterval: 10
     spawnCount: 0
   currentWaveCount: 0
   enemiesAlive: 0
-  maxEnemiesAllowed: 100
+  maxEnemiesAllowed: 200
   maxEnemiesReached: 0
   waveInterval: 45
   relativeSpawnPoints:
@@ -5694,7 +5695,7 @@ MonoBehaviour:
   - {fileID: 1469220039}
   - {fileID: 1588222209}
   - {fileID: 1307015720}
-  levelTime: 300
+  levelTime: 900
   timeDisplay: {fileID: 1089754060}
   timerText: {fileID: 636867136}
   isGameOver: 0
@@ -12620,7 +12621,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4550546664661446757, guid: 05c5a170f6bd983429b4d9fc6d79b42a, type: 3}
       propertyPath: propPrefabs.Array.size
-      value: 11
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4550546664661446757, guid: 05c5a170f6bd983429b4d9fc6d79b42a, type: 3}
       propertyPath: 'propPrefabs.Array.data[2]'
