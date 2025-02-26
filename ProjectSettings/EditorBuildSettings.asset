@@ -6,11 +6,17 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 727abcba7beabe1488d54d0941290ff8
+  - enabled: 1
     path: Assets/Scenes/TutorialLevel.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
     path: Assets/Tan/Scenes/Tan's Level 2.unity
     guid: cbd3024acd574244093903b389958225
+  - enabled: 1
+    path: Assets/Kum/Scenes/Game.unity
+    guid: b0ea9578aa6f8584398002c639dfe359
   - enabled: 1
     path: Assets/Scenes/BossLevel.unity
     guid: 315a8fdf317245343a8b1f423904f533

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro; // Import TextMeshPro namespace
+using UnityEngine.SceneManagement;
 
 public class SpawnManager : MonoBehaviour
 {
@@ -225,7 +226,7 @@ public class SpawnManager : MonoBehaviour
         // Log the end of the level
         Debug.Log("Level ended!");
 
-        // Implement level end logic (e.g., show results screen, transition to next level)
+        SceneManager.LoadScene(2);
     }
 
     public void OnKeyCollected()
