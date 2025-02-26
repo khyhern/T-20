@@ -5204,6 +5204,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 349359458}
+  startValue: 600
+  endValue: 300
   timeRemaining: 300
   timerIsRunning: 1
 --- !u!1 &1932261478
@@ -6064,6 +6066,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 719974695}
     m_Modifications:
+    - target: {fileID: 502050117604365085, guid: 8bdcf86144dc3674a82bc753a497f5dc, type: 3}
+      propertyPath: m_PointLightInnerAngle
+      value: 360
+      objectReference: {fileID: 0}
+    - target: {fileID: 502050117604365085, guid: 8bdcf86144dc3674a82bc753a497f5dc, type: 3}
+      propertyPath: m_PointLightOuterAngle
+      value: 360
+      objectReference: {fileID: 0}
+    - target: {fileID: 502050117604365085, guid: 8bdcf86144dc3674a82bc753a497f5dc, type: 3}
+      propertyPath: m_PointLightOuterRadius
+      value: 7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 565384765296453139, guid: 8bdcf86144dc3674a82bc753a497f5dc, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 565384765296453139, guid: 8bdcf86144dc3674a82bc753a497f5dc, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 565384765296453139, guid: 8bdcf86144dc3674a82bc753a497f5dc, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 565384765296453139, guid: 8bdcf86144dc3674a82bc753a497f5dc, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 565384765296453139, guid: 8bdcf86144dc3674a82bc753a497f5dc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -90
+      objectReference: {fileID: 0}
     - target: {fileID: 2705825604052159578, guid: 8bdcf86144dc3674a82bc753a497f5dc, type: 3}
       propertyPath: m_CollisionDetection
       value: 1
@@ -6140,6 +6174,10 @@ PrefabInstance:
       propertyPath: levelText
       value: 
       objectReference: {fileID: 1645344160}
+    - target: {fileID: 5713301073922668609, guid: 8bdcf86144dc3674a82bc753a497f5dc, type: 3}
+      propertyPath: loseScene
+      value: MainMenu
+      objectReference: {fileID: 0}
     - target: {fileID: 5713301073922668609, guid: 8bdcf86144dc3674a82bc753a497f5dc, type: 3}
       propertyPath: healthText
       value: 
