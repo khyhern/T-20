@@ -12,12 +12,12 @@ public class MapController : MonoBehaviour
     Vector3 playerLastPosition;
 
     [Header("Optimization")]
-    public List<GameObject> spawnedChunks;
-    GameObject latestChunk;
-    public float maxOpDist; //Must be greater than the length and width of the tilemap
-    float opDist;
-    float optimizerCooldown;
-    public float optimizerCooldownDur;
+    public List<GameObject> spawnedChunks = new List<GameObject>();
+    public int maxChunksAllowed = 20; // Prevent excessive chunk spawning
+    public float maxOpDist;
+    private HashSet<Vector3> existingChunkPositions = new HashSet<Vector3>(); // Prevent duplicates
+    private float optimizerCooldown;
+    public float optimizerCooldownDur = 1f; // Interval for chunk optimization
 
     void Start()
     {
@@ -27,7 +27,7 @@ public class MapController : MonoBehaviour
     void Update()
     {
         ChunkChecker();
-        ChunkOptimzer();
+        ChunkOptimizer();
     }
 
     void ChunkChecker()
@@ -41,33 +41,27 @@ public class MapController : MonoBehaviour
         playerLastPosition = player.transform.position;
 
         string directionName = GetDirectionName(moveDir);
-
         CheckAndSpawnChunk(directionName);
 
         // Check additional adjacent directions for diagonal chunks
-        if (directionName.Contains("Up"))
-        {
-            CheckAndSpawnChunk("Up");
-        }
-        if (directionName.Contains("Down"))
-        {
-            CheckAndSpawnChunk("Down");
-        }
-        if (directionName.Contains("Right"))
-        {
-            CheckAndSpawnChunk("Right");
-        }
-        if (directionName.Contains("Left"))
-        {
-            CheckAndSpawnChunk("Left");
-        }
+        if (directionName.Contains("Up")) CheckAndSpawnChunk("Up");
+        if (directionName.Contains("Down")) CheckAndSpawnChunk("Down");
+        if (directionName.Contains("Right")) CheckAndSpawnChunk("Right");
+        if (directionName.Contains("Left")) CheckAndSpawnChunk("Left");
     }
 
     void CheckAndSpawnChunk(string direction)
     {
-        if (!Physics2D.OverlapCircle(currentChunk.transform.Find(direction).position, checkerRadius, terrainMask))
+        Transform directionTransform = currentChunk.transform.Find(direction);
+        if (directionTransform == null) return;
+
+        Vector3 spawnPosition = directionTransform.position;
+        
+        // Check if chunk already exists before spawning
+        if (!existingChunkPositions.Contains(spawnPosition) && 
+            !Physics2D.OverlapCircle(spawnPosition, checkerRadius, terrainMask))
         {
-            SpawnChunk(currentChunk.transform.Find(direction).position);
+            SpawnChunk(spawnPosition);
         }
     }
 
@@ -77,68 +71,44 @@ public class MapController : MonoBehaviour
 
         if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
         {
-            // Moving horizontally more than vertically
-            if (direction.y > 0.5f)
-            {
-                // Also moving upwards
-                return direction.x > 0 ? "Right Up" : "Left Up";
-            }
-            else if (direction.y < -0.5f)
-            {
-                // Also moving downwards
-                return direction.x > 0 ? "Right Down" : "Left Down";
-            }
-            else
-            {
-                // Moving straight horizontally
-                return direction.x > 0 ? "Right" : "Left";
-            }
+            if (direction.y > 0.5f) return direction.x > 0 ? "Right Up" : "Left Up";
+            else if (direction.y < -0.5f) return direction.x > 0 ? "Right Down" : "Left Down";
+            else return direction.x > 0 ? "Right" : "Left";
         }
         else
         {
-            // Moving vertically more than horizontally
-            if (direction.x > 0.5f)
-            {
-                // Also moving right
-                return direction.y > 0 ? "Right Up" : "Right Down";
-            }
-            else if (direction.x < -0.5f)
-            {
-                // Also moving left
-                return direction.y > 0 ? "Left Up" : "Left Down";
-            }
-            else
-            {
-                // Moving straight vertically
-                return direction.y > 0 ? "Up" : "Down";
-            }
+            if (direction.x > 0.5f) return direction.y > 0 ? "Right Up" : "Right Down";
+            else if (direction.x < -0.5f) return direction.y > 0 ? "Left Up" : "Left Down";
+            else return direction.y > 0 ? "Up" : "Down";
         }
     }
 
     void SpawnChunk(Vector3 spawnPosition)
     {
-        int rand = Random.Range(0, terrainChunks.Count);
-        latestChunk = Instantiate(terrainChunks[rand], spawnPosition, Quaternion.identity);
-        spawnedChunks.Add(latestChunk);
-    }
-
-    void ChunkOptimzer()
-    {
-        optimizerCooldown -= Time.deltaTime;
-
-        if (optimizerCooldown <= 0f)
+        if (spawnedChunks.Count >= maxChunksAllowed)
         {
-            optimizerCooldown = optimizerCooldownDur;   //Check every 1 second to save cost, change this value to lower to check more times
-        }
-        else
-        {
+            Debug.LogWarning("Chunk limit reached, skipping spawn.");
             return;
         }
 
-        foreach (GameObject chunk in spawnedChunks)
+        int rand = Random.Range(0, terrainChunks.Count);
+        GameObject newChunk = Instantiate(terrainChunks[rand], spawnPosition, Quaternion.identity);
+        spawnedChunks.Add(newChunk);
+        existingChunkPositions.Add(spawnPosition); // Track this position
+    }
+
+    void ChunkOptimizer()
+    {
+        optimizerCooldown -= Time.deltaTime;
+        if (optimizerCooldown > 0f) return;
+        optimizerCooldown = optimizerCooldownDur; 
+
+        for (int i = spawnedChunks.Count - 1; i >= 0; i--)
         {
-            opDist = Vector3.Distance(player.transform.position, chunk.transform.position);
-            if (opDist > maxOpDist)
+            GameObject chunk = spawnedChunks[i];
+            float distance = Vector3.Distance(player.transform.position, chunk.transform.position);
+
+            if (distance > maxOpDist)
             {
                 chunk.SetActive(false);
             }
@@ -146,6 +116,15 @@ public class MapController : MonoBehaviour
             {
                 chunk.SetActive(true);
             }
+        }
+
+        // Remove and destroy extra chunks if limit is exceeded
+        while (spawnedChunks.Count > maxChunksAllowed)
+        {
+            GameObject oldChunk = spawnedChunks[0];
+            existingChunkPositions.Remove(oldChunk.transform.position);
+            spawnedChunks.RemoveAt(0);
+            Destroy(oldChunk);
         }
     }
 }
