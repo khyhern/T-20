@@ -178,6 +178,7 @@ public class PlayerScript : MonoBehaviour
         playerHealthPoints = maxHealth;
         currentLevel++;
         currentExperience = 0;
+        maxExperience += 20;
 
         if (equipWeapon != null)
         {

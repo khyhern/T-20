@@ -3154,7 +3154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponIdentity: SMG
   Arrow: {fileID: 1421550756}
-  shootCooldown: 0.067
+  shootCooldown: 0.09
   ammoText: {fileID: 699580069}
   magazineSize: 30
   reloadTime: 1.9
