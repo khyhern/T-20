@@ -39,7 +39,7 @@ public class ShootingSemi : MonoBehaviour
         if (isReloading) return; // Prevent actions during reload
 
         // Single-click fire
-        if (Input.GetButtonDown("Fire1") && Time.time >= lastShootTime + shootCooldown)
+        if (Input.GetButton("Fire1") && Time.time >= lastShootTime + shootCooldown)
         {
             Shoot();
             lastShootTime = Time.time;

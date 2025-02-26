@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -36,6 +37,8 @@ public class PlayerScript : MonoBehaviour
     public float DashCooldownRemaining => dashCooldownRemaining;
 
     public EquipWeapon equipWeapon; // Reference to EquipWeapon script
+
+    public string loseScene; // Set the lose scene in Inspector
 
     void Start()
     {
@@ -183,8 +186,14 @@ public class PlayerScript : MonoBehaviour
 
     private void PlayerDie()
     {
-        Debug.Log("Game Over!");
-        Time.timeScale = 0f;
+        if (loseScene != null)
+        {
+            SceneManager.LoadScene(loseScene); // Change to your lose scene name
+        }
+        else
+        {
+            Debug.Log("Set a lose scene for level 2");
+        }
     }
 
     private void HandleExperienceChange(int newExperience)
