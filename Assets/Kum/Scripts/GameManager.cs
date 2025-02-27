@@ -72,10 +72,10 @@ public class GameManager : MonoBehaviour
 
     DisableScreens();
 
-    // ✅ Ensure the level starts at 5 minutes
+    // ✅ Ensure the level starts at 15 minutes
     if (levelTime <= 0)
     {
-        levelTime = 300f;
+        levelTime = 900f;
     }
 }
 
@@ -108,7 +108,7 @@ public class GameManager : MonoBehaviour
             if (!isGameOver)
             {
                 isGameOver = true;
-                Time.timeScale = 0f; // Stop the game
+                Time.timeScale = 600f; // Stop the game
                 Debug.Log("Game is over");
                 DisplayResults();
             }
