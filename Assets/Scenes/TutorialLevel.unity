@@ -422,7 +422,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 8813968296561587669, guid: 280cb38f1aff1b446bc4da13b3088983, type: 3}
   firePoint: {fileID: 1192860833}
   maxAmmo: 6
-  fireRate: 0.25
+  fireRate: 0.6
   reloadTime: 1
   bulletSpeed: 20
   shootingSlowFactor: 0.6
@@ -460,7 +460,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.507
+  m_Volume: 0.355
   m_Pitch: 1
   Loop: 0
   Mute: 0
