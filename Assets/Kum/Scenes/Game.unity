@@ -2008,7 +2008,11 @@ MonoBehaviour:
       spawnCount: 0
       enemyPrefab: {fileID: 461759420925149495, guid: 69403e684532f8a4094fd87c16a70679, type: 3}
     waveQuota: 0
+<<<<<<< HEAD
     spawnInterval: 3
+=======
+    spawnInterval: 10
+>>>>>>> main
     spawnCount: 0
   - waveName: Wave 2
     enemyGroups:
@@ -2017,7 +2021,11 @@ MonoBehaviour:
       spawnCount: 0
       enemyPrefab: {fileID: 461759420925149495, guid: 64ee214789447d14fbde0a686fbddd4c, type: 3}
     waveQuota: 0
+<<<<<<< HEAD
     spawnInterval: 3
+=======
+    spawnInterval: 10
+>>>>>>> main
     spawnCount: 0
   - waveName: Wave 3
     enemyGroups:
@@ -2030,7 +2038,11 @@ MonoBehaviour:
       spawnCount: 0
       enemyPrefab: {fileID: 461759420925149495, guid: 64ee214789447d14fbde0a686fbddd4c, type: 3}
     waveQuota: 0
+<<<<<<< HEAD
     spawnInterval: 1
+=======
+    spawnInterval: 10
+>>>>>>> main
     spawnCount: 0
   - waveName: Wave 4
     enemyGroups:
@@ -2043,7 +2055,11 @@ MonoBehaviour:
       spawnCount: 0
       enemyPrefab: {fileID: 461759420925149495, guid: 64ee214789447d14fbde0a686fbddd4c, type: 3}
     waveQuota: 0
+<<<<<<< HEAD
     spawnInterval: 1
+=======
+    spawnInterval: 10
+>>>>>>> main
     spawnCount: 0
   - waveName: Wave 5
     enemyGroups:
@@ -2069,7 +2085,11 @@ MonoBehaviour:
       spawnCount: 0
       enemyPrefab: {fileID: 461759420925149495, guid: 64ee214789447d14fbde0a686fbddd4c, type: 3}
     waveQuota: 0
+<<<<<<< HEAD
     spawnInterval: 1
+=======
+    spawnInterval: 10
+>>>>>>> main
     spawnCount: 0
   - waveName: Wave 7
     enemyGroups:
@@ -2082,7 +2102,11 @@ MonoBehaviour:
       spawnCount: 0
       enemyPrefab: {fileID: 461759420925149495, guid: 64ee214789447d14fbde0a686fbddd4c, type: 3}
     waveQuota: 0
+<<<<<<< HEAD
     spawnInterval: 1
+=======
+    spawnInterval: 10
+>>>>>>> main
     spawnCount: 0
   - waveName: 8
     enemyGroups:
@@ -2095,7 +2119,11 @@ MonoBehaviour:
       spawnCount: 0
       enemyPrefab: {fileID: 461759420925149495, guid: 64ee214789447d14fbde0a686fbddd4c, type: 3}
     waveQuota: 0
+<<<<<<< HEAD
     spawnInterval: 1
+=======
+    spawnInterval: 10
+>>>>>>> main
     spawnCount: 0
   - waveName: 9
     enemyGroups:
@@ -2134,7 +2162,11 @@ MonoBehaviour:
       spawnCount: 0
       enemyPrefab: {fileID: 461759420925149495, guid: 64ee214789447d14fbde0a686fbddd4c, type: 3}
     waveQuota: 0
+<<<<<<< HEAD
     spawnInterval: 1
+=======
+    spawnInterval: 10
+>>>>>>> main
     spawnCount: 0
   - waveName: 12
     enemyGroups:
@@ -2147,7 +2179,11 @@ MonoBehaviour:
       spawnCount: 0
       enemyPrefab: {fileID: 461759420925149495, guid: 64ee214789447d14fbde0a686fbddd4c, type: 3}
     waveQuota: 0
+<<<<<<< HEAD
     spawnInterval: 1
+=======
+    spawnInterval: 10
+>>>>>>> main
     spawnCount: 0
   - waveName: 13
     enemyGroups:
@@ -2160,7 +2196,11 @@ MonoBehaviour:
       spawnCount: 0
       enemyPrefab: {fileID: 461759420925149495, guid: 64ee214789447d14fbde0a686fbddd4c, type: 3}
     waveQuota: 0
+<<<<<<< HEAD
     spawnInterval: 1
+=======
+    spawnInterval: 10
+>>>>>>> main
     spawnCount: 0
   - waveName: 14
     enemyGroups:
@@ -2173,7 +2213,11 @@ MonoBehaviour:
       spawnCount: 0
       enemyPrefab: {fileID: 461759420925149495, guid: 64ee214789447d14fbde0a686fbddd4c, type: 3}
     waveQuota: 0
+<<<<<<< HEAD
     spawnInterval: 1
+=======
+    spawnInterval: 10
+>>>>>>> main
     spawnCount: 0
   - waveName: 15
     enemyGroups:
