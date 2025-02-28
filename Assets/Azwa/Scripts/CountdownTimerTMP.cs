@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class CountdownTimerTMP : MonoBehaviour
 {
@@ -38,6 +39,6 @@ public class CountdownTimerTMP : MonoBehaviour
     void TimerEnded()
     {
         Debug.Log("Timer has ended!");
-        // Add any event when the timer reaches 0 (e.g., Game Over, UI changes, etc.)
+        SceneManager.LoadScene("WinScene");
     }
 }
