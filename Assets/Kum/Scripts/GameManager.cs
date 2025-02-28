@@ -93,9 +93,9 @@ public class GameManager : MonoBehaviour
                 levelTime -= Time.deltaTime;
                 UpdateTimerUI();
             }
-            else if (levelTime <= 0)
+            else if (levelTime <= 600)
             {
-                levelTime = 0; // Prevents negative values
+                levelTime = 600; // Prevents negative values
                 EndLevel();
             }
             break;
