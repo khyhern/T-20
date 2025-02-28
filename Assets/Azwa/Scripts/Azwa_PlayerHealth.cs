@@ -1,7 +1,7 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using TMPro;
+using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class Azwa_PlayerHealth : MonoBehaviour
 {
@@ -13,41 +13,36 @@ public class Azwa_PlayerHealth : MonoBehaviour
     public float invincibilityDuration = 1f;
     private bool isInvincible = false;
 
-    [Header("UI Elements")]
-    public TextMeshProUGUI healthText; // Assign this in Inspector
-
     void Start()
     {
         currentHealth = maxHealth;
-        UpdateHealthUI(); // Initialize UI
     }
 
     public void TakeDamage(float damage)
     {
+        // Reduce health first
         currentHealth -= damage;
-        UpdateHealthUI(); // Update the UI
 
         if (currentHealth <= 0)
         {
             Debug.Log("Player has died");
             Die();
-            return;
+            return; // Prevent further execution
         }
 
+        // Only apply invincibility if the player is still alive
         if (!isInvincible)
         {
             StartCoroutine(InvincibilityFrames());
         }
     }
 
-    void UpdateHealthUI()
-    {
-        healthText.text = "Health: " + currentHealth.ToString("0"); // Display as whole number
-    }
-
     void Die()
     {
+        // Debug log for verification
         Debug.Log("Player is dead, changing scene...");
+
+        // Load the death scene (Scene index 6)
         SceneManager.LoadScene(6);
     }
 
