@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class BossHealth : MonoBehaviour
 {
@@ -27,12 +29,16 @@ public class BossHealth : MonoBehaviour
 
     void Die()
     {
-
         // Disable boss components (e.g., AI, Collider)
         GetComponent<Collider2D>().enabled = false;
         GetComponent<Rigidbody2D>().simulated = false;
 
-        // Destroy the boss after animation plays
-        Destroy(gameObject, 2f);
+        // Load the WinScene after a short delay
+        Invoke("LoadWinScene", 1f);
+    }
+
+    void LoadWinScene()
+    {
+        SceneManager.LoadScene("WinScene"); // Change "WinScene" to the actual scene name
     }
 }
