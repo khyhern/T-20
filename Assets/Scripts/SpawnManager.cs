@@ -32,7 +32,7 @@ public class SpawnManager : MonoBehaviour
         activeEnemies = new Dictionary<string, List<GameObject>>();
 
         // Retrieve the object pool manager component attached to the same GameObject
-        objectPoolManager = GetComponent<ObjectPoolManager>();
+        objectPoolManager = GetComponent<ObjectPoolManager>();  
         if (objectPoolManager == null)
         {
             Debug.LogError("ObjectPoolManager not found! Ensure it is attached to the GameObject.");
@@ -145,14 +145,14 @@ public class SpawnManager : MonoBehaviour
                 );
 
                 // Attach specific behavior dynamically
-                if (session.behaviorScript != null)
+                if (!string.IsNullOrEmpty(session.behaviorScriptName))
                 {
-                    var behaviorType = session.behaviorScript.GetClass();
+                    System.Type behaviorType = System.Type.GetType(session.behaviorScriptName);
+
                     if (behaviorType != null && typeof(IEnemyBehavior).IsAssignableFrom(behaviorType))
                     {
                         enemy.AddComponent(behaviorType);
 
-                        // Check if this enemy is a boss
                         if (enemy.GetComponent<BossEnemyBehavior>() != null)
                         {
                             CreateBarrierAroundPlayer();
@@ -160,9 +160,10 @@ public class SpawnManager : MonoBehaviour
                     }
                     else
                     {
-                        Debug.LogError($"Behavior script {session.behaviorScript.name} does not implement IEnemyBehavior.");
+                        Debug.LogError($"Behavior script '{session.behaviorScriptName}' not found or does not implement IEnemyBehavior.");
                     }
                 }
+
             }
 
             activeEnemies[session.enemyName].Add(enemy);
